@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" Log parser """
 import sys
 import collections
 
@@ -7,14 +8,16 @@ counts = {}
 all_stat_count = 0
 status_code_list = []
 total_file_size = 0
-counter = 1
+count = 0
 
-for count, line in enumerate(sys.stdin):
+for line in sys.stdin:
     status_code = eval(line.split()[7])
     file_size = eval(line.split()[8])
     total_file_size += file_size
+    count += 1
     if (status_code in status_codes):
         status_code_list.append(status_code)
+    # print(total_file_size)
     # print(status_code_list)
 
     for stat in status_code_list:
@@ -22,11 +25,11 @@ for count, line in enumerate(sys.stdin):
             counts[stat] += 1
         else:
             counts[stat] = 1
-    # print(counts)
-    if (count % 10 == 0):
-        print("File size: {}".format(total_file_size))
+    print(counts)
+    print(sum(counts.values()))
+    # if ():
+    #     print("File size: {}".format(total_file_size))
 
-        od = collections.OrderedDict(sorted(counts.items()))
-        for key, val in od.items():
-            print("{}: {}".format(key, val))
-        counter += 1
+    #     od = collections.OrderedDict(sorted(counts.items()))
+    #     for key, val in od.items():
+    #         print("{}: {}".format(key, val))
