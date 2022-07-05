@@ -1,35 +1,28 @@
 #!/usr/bin/python3
-""" Log parser """
+"""log parsing"""
 import sys
-import collections
 
-status_codes = [200, 301, 400, 401, 403, 404, 405, 500]
-counts = {}
-all_stat_count = 0
-status_code_list = []
-total_file_size = 0
+
+def split_str(stdin):
+    str_list = stdin.split(" ")
+    status_code = str_list[-2].replace('\n', '')
+    file_size = str_list[-1][:-1]
+    return {'status_code': int(status_code), 'file_size': int(file_size)}
+
+
 count = 0
+status_codes = [200, 301, 400, 401, 403, 404, 405, 500]
+status_code_data = {code: 0 for code in status_codes}
+file_size = 0
 
 for line in sys.stdin:
-    status_code = eval(line.split()[7])
-    file_size = eval(line.split()[8])
-    total_file_size += file_size
     count += 1
-    if (status_code in status_codes):
-        status_code_list.append(status_code)
-    # print(total_file_size)
-    # print(status_code_list)
-
-    for stat in status_code_list:
-        if stat in counts:
-            counts[stat] += 1
-        else:
-            counts[stat] = 1
-    print(counts)
-    print(sum(counts.values()))
-    # if ():
-    #     print("File size: {}".format(total_file_size))
-
-    #     od = collections.OrderedDict(sorted(counts.items()))
-    #     for key, val in od.items():
-    #         print("{}: {}".format(key, val))
+    data = split_str(line)
+    status_code_data[data['status_code']] += 1
+    sorted_code_data = dict(sorted(status_code_data.items()))
+    file_size += data['file_size']
+    if count % 10 == 0:
+        sys.stdout.write('File size: {}\n'.format(file_size))
+        for k, v in sorted_code_data.items():
+            if v != 0:
+                sys.stdout.write('{}: {}\n'.format(k, v))
