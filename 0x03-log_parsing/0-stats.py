@@ -23,10 +23,10 @@ for count, line in enumerate(sys.stdin):
         else:
             counts[stat] = 1
     # print(counts)
-    if (counter * 10 + 1 == count):
+    if (count % 10 == 0):
         print("File size: {}".format(total_file_size))
 
         od = collections.OrderedDict(sorted(counts.items()))
         for key, val in od.items():
             print("{}: {}".format(key, val))
-        counter += 1  
+        counter += 1
