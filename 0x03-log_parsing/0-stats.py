@@ -19,7 +19,7 @@ try:
                 else:
                     counts[status_code] = 1
 
-            if (sum(counts.values()) % 10 == 0):
+            if (sum(counts.values()) % 10 == 0 or sum(counts.values()) == 0):
                 print("File size: {}".format(total_file_size))
                 for key, val in sorted(counts.items()):
                     print("{}: {}".format(key, val))
