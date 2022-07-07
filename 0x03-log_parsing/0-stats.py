@@ -12,14 +12,14 @@ try:
         linesplit = line.split()
         if (len(linesplit) > 6):
             total_file_size += eval(linesplit[-1])
-            status_code = eval(line.split()[-2])
+            status_code = eval(linesplit.split()[-2])
             if (status_code in status_codes):
                 if status_code in counts:
                     counts[status_code] += 1
                 else:
                     counts[status_code] = 1
 
-            if (sum(counts.values()) % 10 == 0 or sum(counts.values()) == 0):
+            if (sum(counts.values()) % 10 == 0):
                 print("File size: {}".format(total_file_size))
                 for key, val in sorted(counts.items()):
                     print("{}: {}".format(key, val))
