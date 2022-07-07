@@ -12,7 +12,7 @@ try:
         linesplit = line.split()
         if (len(linesplit) > 6):
             total_file_size += eval(linesplit[-1])
-            status_code = eval(linesplit.split()[-2])
+            status_code = eval(linesplit[-2])
             if (status_code in status_codes):
                 if status_code in counts:
                     counts[status_code] += 1
