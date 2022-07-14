@@ -1,7 +1,4 @@
 #!/usr/bin/python3
-"""
-UTF-8 Validation
-"""
 
 
 def validUTF8(data):
@@ -27,3 +24,5 @@ def validUTF8(data):
                 return False
             byte_count -= 1
     return byte_count == 0
+
+
