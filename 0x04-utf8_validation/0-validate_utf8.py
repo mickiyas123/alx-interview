@@ -9,6 +9,8 @@ def validUTF8(data):
     """
 
     for num in data:
+        if num < 0:
+            num = num * -1
         if num >= 128:
             return False
     return True
