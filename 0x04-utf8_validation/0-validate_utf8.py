@@ -7,10 +7,7 @@ def validUTF8(data):
     :type data: List[int]
     :rtype: bool
     """
-
     for num in data:
-        if num < 0:
-            num = num * -1
-        if num >= 128:
+        if num >= 256:
             return False
     return True
